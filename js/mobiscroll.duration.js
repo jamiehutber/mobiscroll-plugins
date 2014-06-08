@@ -19,7 +19,7 @@
       defaults = {
           // Default options for the preset
           weeks: 0,
-          days: 1,
+          days: 0,
           hours: 0,
           minutes: 0,
           seconds: 0
@@ -63,7 +63,7 @@
 //    return unit; //abbreviations[unit] || unit;
     return unit.slice(0,1).toUpperCase() + unit.slice(1);
   };
-  
+
   ms.presets.duration = function(inst) {
     var settings = inst.settings || {},
         wheelNames = settings.durationWheels || ['days', 'hours', 'minutes'],
@@ -72,9 +72,8 @@
         defaultVals = settings.defaults || [],
         setDefaults = !defaultVals.length,
         elm = $(this); // 'this' refers to the DOM element on which the plugin is called
-        
-    
-      $.each(wheelNames, function(idx, name) {
+
+	  $.each(wheelNames, function(idx, name) {
           name = name.toLowerCase();
           var data = {}, //wheelData[name] = {},
               w = wheels[idx] = {};
@@ -149,7 +148,7 @@
               }
             });
             
-            return str.length ? str.slice(0, str.length - 2) : '(none)';
+            return str.length ? str.slice(0, str.length - 2) : '';
           },
           
           parseValue: function() {
@@ -162,7 +161,7 @@
               if (!val.length)
                 return defaultVals.slice(0);
 
-              if (val === '(none)')
+              if (val === '0:00')
                 return zeroes(wheelNames.length);
               
               if (isNum(val))
